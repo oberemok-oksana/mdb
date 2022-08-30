@@ -1,6 +1,56 @@
 .header {
+  background-color: midnightblue;
+  color: #fff;
+}
+
+.flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+  padding: 15px 0;
+}
+
+.left-navbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.left-navbar input {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.logo {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  color: yellow;
+  font-weight: bold;
+}
+
+.nav {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 15px;
+}
+
+.item {
+  font-size: 17px;
+  cursor: pointer;
+  font-weight: bold;
+  color: rgb(255, 255, 0);
+  text-decoration: none;
+}
+
+.item:hover {
+  color: rgb(143, 193, 229);
+}
+
+.active {
+  color: rgb(54, 158, 233);
 }
