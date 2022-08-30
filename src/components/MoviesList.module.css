@@ -1,0 +1,17 @@
+.bg {
+  box-shadow: 0 0px 9px -4px;
+}
+
+.title {
+  margin: 0;
+  box-shadow: 0 0px 9px -4px;
+  padding: 10px 0;
+  color: rgb(41, 68, 136);
+}
+
+.list {
+  width: 300px;
+  margin: 20px auto;
+  text-align: left;
+  padding-bottom: 30px;
+}
