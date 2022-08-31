@@ -3,18 +3,7 @@ import Loading from "./ui/Loading";
 import Movie from "./Movie";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./MoviesList.module.css";
-
-const getTopMovies = () => {
-  return fetch(
-    "https://api.themoviedb.org/3/movie/top_rated?api_key=091a850778d47440ea8d7d370d18ef7d&language=en-US&page=2"
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      return data;
-    })
-    .catch((error) => console.log(error));
-};
+import { getTopMovies } from "../api";
 
 const MoviesList = () => {
   const { data, isLoading, error } = useQuery(["topMovies"], getTopMovies);
@@ -26,7 +15,12 @@ const MoviesList = () => {
       <ol className={styles.list}>
         {!isLoading &&
           data.results.map((movie) => (
-            <Movie key={movie.id} title={movie.title} />
+            <Movie
+              key={movie.id}
+              id={movie.id}
+              title={movie.title}
+              vote={movie.vote_average}
+            />
           ))}
       </ol>
       {error && <p>{error.message}</p>}
