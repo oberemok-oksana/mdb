@@ -42,6 +42,15 @@ const Header = () => {
             </li>
             <li>
               <NavLink
+                to="/signup"
+                activeClassName={styles.active}
+                className={styles.item}
+              >
+                Sign up |
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/logout"
                 activeClassName={styles.active}
                 className={styles.item}
