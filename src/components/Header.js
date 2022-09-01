@@ -1,8 +1,12 @@
 import styles from "./Header.module.css";
 import Container from "./ui/Container";
 import { NavLink } from "react-router-dom";
+import AuthContext from "../store/auth-context";
+import { useContext } from "react";
 
 const Header = () => {
+  const authCtx = useContext(AuthContext);
+
   return (
     <header className={styles.header}>
       <Container className={styles.flex}>
@@ -22,42 +26,41 @@ const Header = () => {
                 Top 10 movies |
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/my-watching-list"
-                activeClassName={styles.active}
-                className={styles.item}
-              >
-                My watching list |
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/login"
-                activeClassName={styles.active}
-                className={styles.item}
-              >
-                Login |
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/signup"
-                activeClassName={styles.active}
-                className={styles.item}
-              >
-                Sign up |
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/logout"
-                activeClassName={styles.active}
-                className={styles.item}
-              >
-                Logout
-              </NavLink>
-            </li>
+            {authCtx.isLoggedIn && (
+              <li>
+                <NavLink
+                  to="/my-watching-list"
+                  activeClassName={styles.active}
+                  className={styles.item}
+                >
+                  My watching list |
+                </NavLink>
+              </li>
+            )}
+            {!authCtx.isLoggedIn && (
+              <li>
+                <NavLink
+                  to="/login"
+                  activeClassName={styles.active}
+                  className={styles.item}
+                >
+                  Login |
+                </NavLink>
+              </li>
+            )}
+
+            {authCtx.isLoggedIn && (
+              <li>
+                <NavLink
+                  to="/login"
+                  activeClassName={styles.active}
+                  className={styles.item}
+                  onClick={authCtx.logout}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            )}
           </ul>
         </nav>
       </Container>
