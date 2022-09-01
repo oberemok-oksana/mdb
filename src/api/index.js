@@ -28,3 +28,16 @@ export const signUpUser = (data) => {
     }
   ).then((response) => response.json());
 };
+
+export const login = (userData) => {
+  return fetch(
+    "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDmi7oZigu8USzrJQB-AuVHW6b-DpavcvM",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    }
+  );
+};
