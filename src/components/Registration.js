@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { signUpUser } from "../api";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import styles from "./Registration.module.css";
+import Container from "./ui/Container";
 
 const Registration = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -23,6 +25,7 @@ const Registration = () => {
       password: enteredPassword,
       returnSecureToken: true,
     };
+    console.log(userData);
     signUpUser(userData).then((data) => {
       if (data?.error?.message) {
         alert(data.error.message);
@@ -35,24 +38,31 @@ const Registration = () => {
   };
 
   return (
-    <form onSubmit={submitForm}>
-      <h2>Registration</h2>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input type="email" value={enteredEmail} onChange={changeEmail} />
-      </div>
-      <div>
-        <label htmlFor="password">Email</label>
-        <input
-          type="password"
-          value={enteredPassword}
-          onChange={changePassword}
-        />
-      </div>
-      <div>
-        <button type="submit">Sign Up!</button>
-      </div>
-    </form>
+    <Container>
+      <form onSubmit={submitForm} className={styles.form}>
+        <h2>Registration</h2>
+        <div className={styles["form-control"]}>
+          <label htmlFor="email">Email</label>
+          <input type="email" value={enteredEmail} onChange={changeEmail} />
+        </div>
+        <div className={styles["form-control"]}>
+          <label htmlFor="password">Email</label>
+          <input
+            type="password"
+            value={enteredPassword}
+            onChange={changePassword}
+          />
+        </div>
+        <div>
+          <button className={styles.button} type="submit">
+            Sign Up!
+          </button>
+        </div>
+        <Link className={styles.link} to="/login">
+          Already have a registration
+        </Link>
+      </form>
+    </Container>
   );
 };
 
