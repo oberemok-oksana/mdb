@@ -1,16 +1,11 @@
 import { getWatchingList } from "../api";
 import { useQuery } from "@tanstack/react-query";
-import {
-  Container,
-  List,
-  ListItem,
-  ListItemButton,
-  Paper,
-} from "@mui/material";
+import { Container, List, Paper } from "@mui/material";
 import Loading from "./ui/Loading";
+import WatchingListMovie from "./WatchingListMovie";
 
 const WatchingList = () => {
-  const { data, isLoading, error } = useQuery(
+  const { data, isLoading, error, refetch } = useQuery(
     ["watchingList"],
     getWatchingList
   );
@@ -30,7 +25,7 @@ const WatchingList = () => {
         <Paper>
           <List>
             {data.map((item) => (
-              <ListItemButton key={item.id}>{item.title}</ListItemButton>
+              <WatchingListMovie key={item.id} item={item} />
             ))}
           </List>
         </Paper>

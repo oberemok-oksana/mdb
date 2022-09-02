@@ -1,9 +1,8 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getMovieDetails } from "../api";
 import Loading from "./ui/Loading";
 import { useParams } from "react-router-dom";
 import styles from "./MovieDetail.module.css";
-import Button from "@mui/material/Button";
 import { addMovieToWatchingList, getWatchingList } from "../api/index";
 import { toast } from "react-toastify";
 import { LoadingButton } from "@mui/lab";
@@ -17,8 +16,15 @@ const MovieDetail = () => {
     useQuery(["watchingList"], getWatchingList);
 
   const { mutate, isLoading: addMovieLoading } = useMutation(
-    addMovieToWatchingList
+    addMovieToWatchingList,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("watchingList");
+      },
+    }
   );
+
+  const queryClient = useQueryClient();
 
   const notify = () =>
     toast("Movie was added!", {
