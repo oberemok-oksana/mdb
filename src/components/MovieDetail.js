@@ -4,6 +4,7 @@ import Loading from "./ui/Loading";
 import { useParams } from "react-router-dom";
 import styles from "./MovieDetail.module.css";
 import Button from "@mui/material/Button";
+import { addMovieToWatchingList } from "../api/index";
 
 const MovieDetail = () => {
   const params = useParams();
@@ -11,7 +12,9 @@ const MovieDetail = () => {
     getMovieDetails(params.movieId)
   );
 
-  console.log(params);
+  const addMovie = () => {
+    addMovieToWatchingList(data);
+  };
 
   return (
     <>
@@ -36,7 +39,7 @@ const MovieDetail = () => {
               <div>{data.overview}</div>
             </div>
           </div>
-          <Button variant="contained" color="success">
+          <Button variant="contained" color="success" onClick={addMovie}>
             + Watching List
           </Button>
         </div>
