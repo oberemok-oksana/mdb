@@ -23,7 +23,16 @@ const Header = () => {
                 className={styles.item}
                 exact
               >
-                Top 10 movies |
+                Top 10 Movies |
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/watched"
+                activeClassName={styles.active}
+                className={styles.item}
+              >
+                Watched Movies |
               </NavLink>
             </li>
             {authCtx.isLoggedIn && (
@@ -33,7 +42,7 @@ const Header = () => {
                   activeClassName={styles.active}
                   className={styles.item}
                 >
-                  My watching list |
+                  My Watching List |
                 </NavLink>
               </li>
             )}

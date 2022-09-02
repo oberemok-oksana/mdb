@@ -11,6 +11,7 @@ import AuthContext from "./store/auth-context";
 import { useContext } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import WatchedMovies from "./components/WatchedMovies";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <Registration />
+          </Route>
+          <Route path="/watched">
+            <WatchedMovies />
           </Route>
           <Route path="*">
             <Redirect to="/" />

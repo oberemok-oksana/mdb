@@ -81,3 +81,43 @@ export const deleteMovie = (id) => {
     }
   );
 };
+
+export const addMovieToWatchedList = (movieData) => {
+  return fetch(
+    `https://react-http-145af-default-rtdb.asia-southeast1.firebasedatabase.app/watchedMoviesList/${movieData.id}.json`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movieData),
+    }
+  );
+};
+
+export const getWatchedMovies = () => {
+  return fetch(
+    "https://react-http-145af-default-rtdb.asia-southeast1.firebasedatabase.app/watchedMoviesList.json"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const watchedMovies = [];
+      for (let id in data) {
+        watchedMovies.push(data[id]);
+      }
+
+      return watchedMovies;
+    });
+};
+
+export const deleteWatchedMovie = (id) => {
+  return fetch(
+    `https://react-http-145af-default-rtdb.asia-southeast1.firebasedatabase.app/watchedMoviesList/${id}.json`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};

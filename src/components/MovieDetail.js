@@ -1,11 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getMovieDetails } from "../api";
 import Loading from "./ui/Loading";
 import { useParams } from "react-router-dom";
 import styles from "./MovieDetail.module.css";
-import { addMovieToWatchingList, getWatchingList } from "../api/index";
+import {
+  getMovieDetails,
+  addMovieToWatchingList,
+  addMovieToWatchedList,
+  getWatchingList,
+  getWatchedMovies,
+} from "../api/index";
 import { toast } from "react-toastify";
 import { LoadingButton } from "@mui/lab";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import { Container } from "@mui/system";
+import { Box } from "@mui/material";
 
 const MovieDetail = () => {
   const params = useParams();
@@ -24,6 +33,17 @@ const MovieDetail = () => {
     }
   );
 
+  const { mutate: mutateWatched, isLoading: addMovieWatchedLoading } =
+    useMutation(addMovieToWatchedList, {
+      onSuccess: () => {
+        queryClient.invalidateQueries("watchedList");
+      },
+    });
+
+  const { data: watchedData, isLoading: watchedDataIsLoading } = useQuery(
+    ["watchedList"],
+    getWatchedMovies
+  );
   const queryClient = useQueryClient();
 
   const notify = () =>
@@ -42,14 +62,20 @@ const MovieDetail = () => {
     notify();
   };
 
-  if (isLoading || watchingListDataIsLoading) {
+  const addToWatchedList = () => {
+    mutateWatched(data);
+    notify();
+  };
+
+  if (isLoading || watchingListDataIsLoading || addMovieWatchedLoading) {
     return <Loading />;
   }
 
   const isExist = watchingListData.find((item) => item.id === data.id);
+  const isWatched = watchedData.find((item) => item.id === data.id);
 
   return (
-    <>
+    <Container maxWidth="sm">
       {isLoading && <Loading />}
       {!isLoading && (
         <div>
@@ -71,20 +97,34 @@ const MovieDetail = () => {
               <div>{data.overview}</div>
             </div>
           </div>
-          {!isExist && (
-            <LoadingButton
-              variant="contained"
-              color="success"
-              onClick={addMovie}
-              loading={addMovieLoading}
-            >
-              + Watching List
-            </LoadingButton>
-          )}
+          <Box display="flex" justifyContent="center">
+            <Stack direction="row" spacing={2}>
+              {!isExist && (
+                <LoadingButton
+                  variant="contained"
+                  color="success"
+                  onClick={addMovie}
+                  loading={addMovieLoading}
+                >
+                  + Watching List
+                </LoadingButton>
+              )}
+              {!isWatched && (
+                <LoadingButton
+                  color="success"
+                  variant="contained"
+                  onClick={addToWatchedList}
+                  loading={addMovieWatchedLoading}
+                >
+                  Watched
+                </LoadingButton>
+              )}
+            </Stack>
+          </Box>
         </div>
       )}
       {error && <p>Some error occurred</p>}
-    </>
+    </Container>
   );
 };
 

@@ -5,7 +5,7 @@ import Loading from "./ui/Loading";
 import WatchingListMovie from "./WatchingListMovie";
 
 const WatchingList = () => {
-  const { data, isLoading, error, refetch } = useQuery(
+  const { data, isLoading, error } = useQuery(
     ["watchingList"],
     getWatchingList
   );
