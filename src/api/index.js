@@ -41,3 +41,31 @@ export const login = (userData) => {
     }
   );
 };
+
+export const addMovieToWatchingList = (movieData) => {
+  return fetch(
+    `https://react-http-145af-default-rtdb.asia-southeast1.firebasedatabase.app/movieList/${movieData.id}.json`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movieData),
+    }
+  );
+};
+
+export const getWatchingList = () => {
+  return fetch(
+    "https://react-http-145af-default-rtdb.asia-southeast1.firebasedatabase.app/movieList.json"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const movies = [];
+      for (let id in data) {
+        movies.push(data[id]);
+      }
+
+      return movies;
+    });
+};
