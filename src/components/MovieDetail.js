@@ -1,10 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getMovieDetails } from "../api";
 import Loading from "./ui/Loading";
 import { useParams } from "react-router-dom";
 import styles from "./MovieDetail.module.css";
 import Button from "@mui/material/Button";
 import { addMovieToWatchingList, getWatchingList } from "../api/index";
+import { toast } from "react-toastify";
+import { LoadingButton } from "@mui/lab";
 
 const MovieDetail = () => {
   const params = useParams();
@@ -14,8 +16,24 @@ const MovieDetail = () => {
   const { data: watchingListData, isLoading: watchingListDataIsLoading } =
     useQuery(["watchingList"], getWatchingList);
 
+  const { mutate, isLoading: addMovieLoading } = useMutation(
+    addMovieToWatchingList
+  );
+
+  const notify = () =>
+    toast("Movie was added!", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
   const addMovie = () => {
-    addMovieToWatchingList(data);
+    mutate(data);
+    notify();
   };
 
   if (isLoading || watchingListDataIsLoading) {
@@ -48,9 +66,14 @@ const MovieDetail = () => {
             </div>
           </div>
           {!isExist && (
-            <Button variant="contained" color="success" onClick={addMovie}>
+            <LoadingButton
+              variant="contained"
+              color="success"
+              onClick={addMovie}
+              loading={addMovieLoading}
+            >
               + Watching List
-            </Button>
+            </LoadingButton>
           )}
         </div>
       )}

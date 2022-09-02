@@ -9,6 +9,8 @@ import Registration from "./components/Registration";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AuthContext from "./store/auth-context";
 import { useContext } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +45,7 @@ function App() {
             <Redirect to="/" />
           </Route>
         </Switch>
+        <ToastContainer />
       </div>
     </QueryClientProvider>
   );
