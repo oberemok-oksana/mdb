@@ -69,3 +69,15 @@ export const getWatchingList = () => {
       return movies;
     });
 };
+
+export const deleteMovie = (id) => {
+  return fetch(
+    `https://react-http-145af-default-rtdb.asia-southeast1.firebasedatabase.app/movieList/${id}.json`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
