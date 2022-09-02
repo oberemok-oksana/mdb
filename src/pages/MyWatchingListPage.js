@@ -1,5 +1,7 @@
+import WatchingList from "../components/WatchingList";
+
 const MyWatchingListPage = () => {
-  return <h1>My watching list!</h1>;
+  return <WatchingList />;
 };
 
 export default MyWatchingListPage;
