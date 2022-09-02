@@ -4,17 +4,25 @@ import Loading from "./ui/Loading";
 import { useParams } from "react-router-dom";
 import styles from "./MovieDetail.module.css";
 import Button from "@mui/material/Button";
-import { addMovieToWatchingList } from "../api/index";
+import { addMovieToWatchingList, getWatchingList } from "../api/index";
 
 const MovieDetail = () => {
   const params = useParams();
   const { data, isLoading, error } = useQuery(["movies", params.movieId], () =>
     getMovieDetails(params.movieId)
   );
+  const { data: watchingListData, isLoading: watchingListDataIsLoading } =
+    useQuery(["watchingList"], getWatchingList);
 
   const addMovie = () => {
     addMovieToWatchingList(data);
   };
+
+  if (isLoading || watchingListDataIsLoading) {
+    return <Loading />;
+  }
+
+  const isExist = watchingListData.find((item) => item.id === data.id);
 
   return (
     <>
@@ -39,9 +47,11 @@ const MovieDetail = () => {
               <div>{data.overview}</div>
             </div>
           </div>
-          <Button variant="contained" color="success" onClick={addMovie}>
-            + Watching List
-          </Button>
+          {!isExist && (
+            <Button variant="contained" color="success" onClick={addMovie}>
+              + Watching List
+            </Button>
+          )}
         </div>
       )}
       {error && <p>Some error occurred</p>}
