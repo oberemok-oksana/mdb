@@ -121,3 +121,10 @@ export const deleteWatchedMovie = (id) => {
     }
   );
 };
+
+export const findMovie = (name) => {
+  return fetch(`
+https://api.themoviedb.org/3/search/movie?api_key=091a850778d47440ea8d7d370d18ef7d&language=en-US&query=${name}&page=1&include_adult=false`).then(
+    (response) => response.json()
+  );
+};
