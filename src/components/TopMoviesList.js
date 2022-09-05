@@ -2,10 +2,10 @@ import Container from "./ui/Container";
 import Loading from "./ui/Loading";
 import Movie from "./Movie";
 import { useQuery } from "@tanstack/react-query";
-import styles from "./MoviesList.module.css";
+import styles from "./TopMoviesList.module.css";
 import { getTopMovies } from "../api";
 
-const MoviesList = () => {
+const TopMoviesList = () => {
   const { data, isLoading, error } = useQuery(["topMovies"], getTopMovies);
 
   return (
@@ -27,4 +27,4 @@ const MoviesList = () => {
     </Container>
   );
 };
-export default MoviesList;
+export default TopMoviesList;
