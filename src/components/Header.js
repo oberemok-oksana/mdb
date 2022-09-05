@@ -3,6 +3,7 @@ import Container from "./ui/Container";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import { useContext } from "react";
+import SearchForm from "./SearchForm";
 
 const Header = () => {
   const authCtx = useContext(AuthContext);
@@ -12,7 +13,7 @@ const Header = () => {
       <Container className={styles.flex}>
         <div className={styles["left-navbar"]}>
           <div className={styles.logo}>KMDb</div>
-          <input type="search" placeholder="Search" />
+          <SearchForm />
         </div>
         <nav>
           <ul className={styles.nav}>

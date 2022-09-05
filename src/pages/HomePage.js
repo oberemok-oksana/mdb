@@ -1,7 +1,7 @@
-import MoviesList from "../components/MoviesList";
+import TopMoviesList from "../components/TopMoviesList";
 
 const HomePage = () => {
-  return <MoviesList />;
+  return <TopMoviesList />;
 };
 
 export default HomePage;
