@@ -1,7 +1,6 @@
 import Button from "@mui/material/Button";
 import styles from "./SearchForm.module.css";
 import { useState } from "react";
-import { findMovie } from "../api";
 import { useHistory } from "react-router-dom";
 
 const SearchForm = () => {
@@ -14,9 +13,7 @@ const SearchForm = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log(searchValue);
 
-    // findMovie(searchValue);
     history.push(`/searching-results/${searchValue}`);
   };
 

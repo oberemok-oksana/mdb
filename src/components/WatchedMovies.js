@@ -2,7 +2,7 @@ import { getWatchedMovies } from "../api/index";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "./ui/Loading";
 import WatchedListMovie from "./WatchedListMovie";
-import { Container, List, Paper } from "@mui/material";
+import { Container, List, Paper, Rating } from "@mui/material";
 
 const WatchedMovies = () => {
   const { data, isLoading } = useQuery(["watchedList"], getWatchedMovies);
