@@ -128,3 +128,22 @@ https://api.themoviedb.org/3/search/movie?api_key=091a850778d47440ea8d7d370d18ef
     (response) => response.json()
   );
 };
+
+export const getRating = (id) => {
+  return fetch(
+    `https://react-http-145af-default-rtdb.asia-southeast1.firebasedatabase.app/ratings/${id}.json`
+  ).then((response) => response.json());
+};
+
+export const setRating = ({ rating, id }) => {
+  return fetch(
+    `https://react-http-145af-default-rtdb.asia-southeast1.firebasedatabase.app/ratings/${id}.json`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ value: rating }),
+    }
+  );
+};
